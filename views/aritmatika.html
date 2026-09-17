@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kalkulator Luas Persegi Panjang</title>
+
+    <!-- Tailwind CSS -->
+     <link rel="stylesheet" href="../src/output.css">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  </head>
+
+  <body class="min-h-screen bg-gray-100">
+    
+    <!-- header -->
+    <header>
+      <nav class="bg-black text-white">
+        <div
+          class="max-w-6xl mx-auto px-5 py-4 flex justify-between items-center">
+          <h1 class="text-xl font-bold">Kalkulator Bangun Datar</h1>
+
+          <a href="index.html" class="text-sm bg-white rounded-xl p-2 font-black text-black px-5 hover:bg-white/90">
+            kembali Ke Website Postofolio</a>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Main -->
+    <main class="max-w-6xl mx-auto px-5 py-10">
+
+      <div class="text-center mb-10">
+
+        <h1 class="text-4xl md:text-5xl font-black mt-2">
+          Luas Persegi Panjang
+        </h1>
+
+        <p class="text-gray-600 mt-3 max-w-xl mx-auto">
+          Masukkan panjang dan lebar persegi panjang untuk menghitung luasnya
+          secara otomatis.
+        </p>
+      </div>
+
+      <!-- Content -->
+      <div class="grid md:grid-cols-2 gap-8 items-start">
+        <!-- Form -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+          <h3 class="text-2xl font-bold mb-6">Masukkan Data</h3>
+
+          <!-- Panjang -->
+          <div class="mb-5">
+            <label for="panjang" class="block font-semibold text-gray-700 mb-2">
+              Panjang
+            </label>
+
+            <div class="flex">
+              <input
+                type="number"
+                id="panjang"
+                min="0"
+                step="any"
+                placeholder="Contoh: 10"
+                class="w-full border border-gray-300 rounded-l-xl px-4 py-3 outline-none focus:ring-2 focus:ring-black focus:border-black"
+              />
+
+              <span
+                class="bg-gray-100 border border-l-0 border-gray-300 rounded-r-xl px-4 py-3 text-gray-600"
+              >
+                cm
+              </span>
+            </div>
+          </div>
+
+          <!-- Lebar -->
+          <div class="mb-6">
+            <label for="lebar" class="block font-semibold text-gray-700 mb-2">
+              Lebar
+            </label>
+
+            <div class="flex">
+              <input
+                type="number"
+                id="lebar"
+                min="0"
+                step="any"
+                placeholder="Contoh: 5"
+                class="w-full border border-gray-300 rounded-l-xl px-4 py-3 outline-none focus:ring-2 focus:ring-black focus:border-black"
+              />
+
+              <span
+                class="bg-gray-100 border border-l-0 border-gray-300 rounded-r-xl px-4 py-3 text-gray-600"
+              >
+                cm
+              </span>
+            </div>
+          </div>
+
+          <!-- Error -->
+          <div
+            id="error"
+            class="hidden bg-red-100 text-red-700 px-4 py-3 rounded-xl mb-5 text-sm"
+          ></div>
+
+          <!-- Button -->
+          <div class="flex gap-3">
+            <button
+              id="hitung"
+              class="flex-1 bg-black text-white font-bold py-3 rounded-xl hover:bg-gray-800 transition"
+            >
+              Hitung Luas
+            </button>
+
+            <button
+              id="reset"
+              class="px-5 py-3 border border-gray-300 font-bold rounded-xl hover:bg-gray-100 transition"
+            >
+              Reset
+            </button>
+          </div>
+        </div>
+
+        <!-- Result -->
+        <div class="bg-black text-white rounded-2xl shadow-lg p-6 md:p-8">
+          <p
+            class="text-gray-400 text-sm font-semibold uppercase tracking-wider"
+          >
+            Hasil Perhitungan
+          </p>
+
+          <h3 class="text-3xl font-black mt-2 mb-8">Luas Persegi Panjang</h3>
+
+          <!-- Result Box -->
+          <div class="bg-white/10 rounded-2xl p-6 text-center">
+            <p class="text-gray-400 mb-2">Luas =</p>
+
+            <p id="hasil" class="text-5xl md:text-6xl font-black">0</p>
+
+            <p class="text-gray-400 mt-2">cm²</p>
+          </div>
+
+          <!-- Detail -->
+          <div id="detail" class="hidden mt-6 border-t border-white/20 pt-5">
+            <p class="text-gray-400 text-sm mb-2">Perhitungan:</p>
+
+            <p id="perhitungan" class="text-lg font-semibold"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Information -->
+      <div class="mt-8 bg-white rounded-2xl shadow p-6">
+        <h3 class="text-xl font-bold mb-3">Cara Menghitung</h3>
+
+        <p class="text-gray-600 mb-4">
+          Untuk menghitung luas persegi panjang, masukkan nilai panjang dan
+          lebar kemudian tekan tombol <b>Hitung Luas</b>.
+        </p>
+
+        <div class="bg-gray-100 rounded-xl p-4 text-center">
+          <span class="text-2xl font-black"> Luas = Panjang × Lebar </span>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-black text-gray-400 text-center py-6 mt-10">
+      <p class="text-sm">© 2026 Kalkulator Bangun Datar</p>
+    </footer>
+
+    <!-- jQuery -->
+    <script>
+      $(document).ready(function () {
+        // Tombol Hitung
+        $("#hitung").click(function () {
+          let panjang = parseFloat($("#panjang").val());
+          let lebar = parseFloat($("#lebar").val());
+
+          // Validasi
+          if (isNaN(panjang) || isNaN(lebar)) {
+            $("#error")
+              .removeClass("hidden")
+              .text("Silakan masukkan panjang dan lebar terlebih dahulu.");
+
+            return;
+          }
+
+          if (panjang <= 0 || lebar <= 0) {
+            $("#error")
+              .removeClass("hidden")
+              .text("Panjang dan lebar harus lebih dari 0.");
+
+            return;
+          }
+
+          // Hilangkan pesan error
+          $("#error").addClass("hidden");
+
+          // Hitung luas
+          let luas = panjang * lebar;
+
+          // Tampilkan hasil
+          $("#hasil").text(luas);
+
+          // Tampilkan detail perhitungan
+          $("#perhitungan").text(
+            panjang + " cm × " + lebar + " cm = " + luas + " cm²",
+          );
+
+          $("#detail").removeClass("hidden");
+        });
+
+        // Tombol Reset
+        $("#reset").click(function () {
+          $("#panjang").val("");
+          $("#lebar").val("");
+
+          $("#hasil").text("0");
+
+          $("#error").addClass("hidden");
+
+          $("#detail").addClass("hidden");
+        });
+
+        // Tekan Enter untuk menghitung
+        $("input").keypress(function (event) {
+          if (event.which === 13) {
+            $("#hitung").click();
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

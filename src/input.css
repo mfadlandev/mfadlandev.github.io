@@ -1,0 +1,8 @@
+/* Tailwind v4 */
+@import "tailwindcss";
+
+/* Kalau kamu pakai Tailwind v3, hapus dua baris di atas dan pakai ini:
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+*/
